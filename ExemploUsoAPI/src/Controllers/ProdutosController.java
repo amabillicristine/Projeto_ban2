@@ -1,6 +1,7 @@
 package Controllers;
 
 
+import Beans.ProdutoBean;
 import Beans.UsuarioBean;
 import Enums.GeneroEnum;
 import Enums.StatusEnum;
@@ -20,17 +21,17 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class UsuarioController {
+public class ProdutosController {
 
-    public void deleteUsuario(Connection con) throws SQLException {
+    public void deleteProduto(Connection con) throws SQLException {
         Scanner input = new Scanner(System.in);
         System.out.print("Digite o ID do usuário a ser excluído: ");
         String id = input.nextLine();
-        UsuarioModel.delete(id, con);
+        ProdutoModel.delete(id, con);
         System.out.println("Usuário excluído com sucesso.");
     }
 
-    public void createUsuario(Connection con) throws SQLException {
+    public void createProduto(Connection con) throws SQLException {
         Scanner input = new Scanner(System.in);
         System.out.println("Insira os seguintes dados para criar um novo Usuário: ");
         System.out.print("CPF: ");
@@ -69,76 +70,76 @@ public class UsuarioController {
         usuario.setStatus(StatusEnum.valueOf(status));
         usuario.setTipo(TipoEnum.valueOf(tipo));
         
-        UsuarioModel.create(usuario, con);
+        ProdutoModel.create(usuario, con);
         System.out.println("Usuário criado com sucesso!!");
     }
 
-    public void patchUsuario(Connection con) throws SQLException {
+    public void patchProduto(Connection con) throws SQLException {
         Scanner input = new Scanner(System.in);
         System.out.print("Digite o ID do usuário a ser alterado: ");
         String id = input.nextLine();
         int op = patchMenu();
         switch (op) {
             case 1:
-                getUsuario(con, id);
+                getProduto(con, id);
                 System.out.print("Novo CPF: ");
                 String novoCpf = input.nextLine();
-                UsuarioModel.patch("cpf", novoCpf, id, con);
+                ProdutoModel.patch("cpf", novoCpf, id, con);
                 break;
             case 2:
-                getUsuario(con, id);
+                getProduto(con, id);
                 System.out.print("Novo Nome: ");
                 String novoNome = input.nextLine();
-                UsuarioModel.patch("nome", novoNome, id, con);
+                ProdutoModel.patch("nome", novoNome, id, con);
                 break;
             case 3:
-                getUsuario(con, id);
+                getProduto(con, id);
                 System.out.print("Novo Sobrenome: ");
                 String novoSobrenome = input.nextLine();
-                UsuarioModel.patch("sobrenome", novoSobrenome, id, con);
+                ProdutoModel.patch("sobrenome", novoSobrenome, id, con);
                 break;
             case 4:
-                getUsuario(con, id);
+                getProduto(con, id);
                 System.out.print("Nova Data de Cadastro (YYYY-MM-DD): ");
                 String novaDataCadastro = input.nextLine();
-                UsuarioModel.patch("data_cadastro", novaDataCadastro, id, con);
+                ProdutoModel.patch("data_cadastro", novaDataCadastro, id, con);
                 break;
             case 5:
-                getUsuario(con, id);
+                getProduto(con, id);
                 System.out.print("Nova Data de Nascimento (YYYY-MM-DD): ");
                 String novaDataNascimento = input.nextLine();
-                UsuarioModel.patch("data_nascimento", novaDataNascimento, id, con);
+                ProdutoModel.patch("data_nascimento", novaDataNascimento, id, con);
                 break;
             case 6:
-                getUsuario(con, id);
+                getProduto(con, id);
                 System.out.print("Novo ID Contato: ");
                 String novoIdContato = input.nextLine();
-                UsuarioModel.patch("id_contato", UUID.fromString(novoIdContato).toString(), id, con);
+                ProdutoModel.patch("id_contato", UUID.fromString(novoIdContato).toString(), id, con);
                 break;
             case 7:
-                getUsuario(con, id);
+                getProduto(con, id);
                 System.out.print("Novo Gênero (MASCULINO/FEMININO): ");
                 String novoGenero = input.nextLine();
-                UsuarioModel.patch("genero", GeneroEnum.valueOf(novoGenero).toString(), id, con);
+                ProdutoModel.patch("genero", GeneroEnum.valueOf(novoGenero).toString(), id, con);
                 break;
             case 8:
-                getUsuario(con, id);
+                getProduto(con, id);
                 System.out.print("Novo Status (ATIVO/INATIVO): ");
                 String novoStatus = input.nextLine();
-                UsuarioModel.patch("status", StatusEnum.valueOf(novoStatus).toString(), id, con);
+                ProdutoModel.patch("status", StatusEnum.valueOf(novoStatus).toString(), id, con);
                 break;
             case 9:
-                getUsuario(con, id);
+                getProduto(con, id);
                 System.out.print("Novo Tipo (ADMIN/USER): ");
                 String novoTipo = input.nextLine();
-                UsuarioModel.patch("tipo", TipoEnum.valueOf(novoTipo).toString(), id, con);
+                ProdutoModel.patch("tipo", TipoEnum.valueOf(novoTipo).toString(), id, con);
                 break;
         }
         System.out.println("Usuário alterado com sucesso!!");
     }
 
-    void getUsuario(Connection con, String id) throws SQLException {
-        UsuarioBean usuario = UsuarioModel.getById(con, id);
+    void getProduto(Connection con, String id) throws SQLException {
+        UsuarioBean usuario = ProdutoModel.getById(con, id);
         if (usuario != null) {
             System.out.println(usuario);
         } else {
@@ -146,12 +147,20 @@ public class UsuarioController {
         }
     }
 
-    public void listarUsuarios(Connection con) throws SQLException {
-        HashSet<UsuarioBean> all = UsuarioModel.listAll(con);
-        Iterator<UsuarioBean> it = all.iterator();
+    public void listarProdutos(Connection con) throws SQLException {
+        HashSet<ProdutoBean> all = ProdutoModel.listAll(con);
+        Iterator<ProdutoBean> it = all.iterator();
+        int indexDoItemAtual = 0;
+        
         while (it.hasNext()) {
-            System.out.println(it.next().toString());
+            
+            ProdutoBean produto = it.next();
+            System.out.println("Item [" + indexDoItemAtual + "] - " + produto.getNome()+
+                               ", Valor: R$ " + produto.getValor() +
+                               ", Quantidade em Estoque: " + produto.getQuantidadeEstoque());
+            indexDoItemAtual ++;
         }
+        
     }
 
     private static int patchMenu() {

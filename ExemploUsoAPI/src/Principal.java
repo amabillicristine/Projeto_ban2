@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import Controllers.UsuarioController;
+import Controllers.ProdutosController;
+import Controllers.UsuariosController;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,11 +22,15 @@ public class Principal {
         Conexao c = new Conexao();
         Connection con = c.getConnection();
         int op = 0;
+        System.out.println("Seja bem-vindo ao e-commerce Java Clothes.");
+        System.out.println("Nós temos os seguintes produtos: ");
+        new ProdutosController().listarProdutos(con);
+        /*
         do{
             op = menu();
             try {
                 switch (op) {
-                    case 1: new UsuarioController().createUsuario(con);
+                    case 1: new ProdutosController().listarProdutos(con);
                             break;
                 }
             }catch(SQLException ex) {
@@ -33,7 +38,7 @@ public class Principal {
                 System.out.println(ex.getMessage());
                 continue;
             }
-        } while(op>0 && op<8);  
+        } while(op>0 && op<8);  */
         con.close();
     }    
     
