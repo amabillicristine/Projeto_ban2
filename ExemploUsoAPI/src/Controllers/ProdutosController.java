@@ -26,7 +26,7 @@ public class ProdutosController {
     public void deleteProduto(Connection con) throws SQLException {
         Scanner input = new Scanner(System.in);
         System.out.print("Digite o ID do usuário a ser excluído: ");
-        String id = input.nextLine();
+        int id =Integer.parseInt(input.nextLine());
         ProdutoModel.delete(id, con);
         System.out.println("Usuário excluído com sucesso.");
     }
@@ -59,13 +59,13 @@ public class ProdutosController {
         String tipo = input.nextLine();
         
         UsuarioBean usuario = new UsuarioBean();
-        usuario.setId(UUID.randomUUID());
+        usuario.setId(AtomicIDGenerator.generateID());
         usuario.setCpf(cpf);
         usuario.setNome(nome);
         usuario.setSobrenome(sobrenome);
         usuario.setDataCadastro(LocalDate.now());
         usuario.setDataNascimento(LocalDate.of(anoNascimento, Month.of(mesNascimento), diaNascimento));
-        usuario.setIdContato(UUID.fromString(idContato));
+        usuario.setIdContato(AtomicIDGenerator.generateID());
         usuario.setGenero(GeneroEnum.valueOf(genero));
         usuario.setStatus(StatusEnum.valueOf(status));
         usuario.setTipo(TipoEnum.valueOf(tipo));
@@ -77,7 +77,7 @@ public class ProdutosController {
     public void patchProduto(Connection con) throws SQLException {
         Scanner input = new Scanner(System.in);
         System.out.print("Digite o ID do usuário a ser alterado: ");
-        String id = input.nextLine();
+        int id = Integer.parseInt(input.nextLine());
         int op = patchMenu();
         switch (op) {
             case 1:
@@ -138,7 +138,7 @@ public class ProdutosController {
         System.out.println("Usuário alterado com sucesso!!");
     }
 
-    void getProduto(Connection con, String id) throws SQLException {
+    void getProduto(Connection con, int id) throws SQLException {
         UsuarioBean usuario = ProdutoModel.getById(con, id);
         if (usuario != null) {
             System.out.println(usuario);

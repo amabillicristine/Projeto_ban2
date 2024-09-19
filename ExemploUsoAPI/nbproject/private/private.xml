@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/u04636/Documents/GitHub/Projeto_ban2/ExemploUsoAPI/src/Beans/UsuarioBean.java</file>
+            <file>file:/C:/Users/u04636/Documents/GitHub/Projeto_ban2/ExemploUsoAPI/src/Controllers/UsuarioModel.java</file>
+            <file>file:/C:/Users/u04636/Documents/GitHub/Projeto_ban2/ExemploUsoAPI/src/Enums/GeneroEnum.java</file>
+            <file>file:/C:/Users/u04636/Documents/GitHub/Projeto_ban2/ExemploUsoAPI/src/Controllers/AtomicIDGenerator.java</file>
+            <file>file:/C:/Users/u04636/Documents/GitHub/Projeto_ban2/ExemploUsoAPI/src/Principal.java</file>
+            <file>file:/C:/Users/u04636/Documents/GitHub/Projeto_ban2/ExemploUsoAPI/src/Controllers/UsuariosController.java</file>
+        </group>
     </open-files>
 </project-private>

@@ -1,31 +1,34 @@
 package Beans;
 
-import java.util.UUID;
+//import java.util.UUID;
 import Enums.GeneroEnum;
 import Enums.StatusEnum;
 import Enums.TipoEnum;
 import java.time.LocalDate;
+import Controllers.AtomicIDGenerator;
 
 public class UsuarioBean {
-    private UUID id;
+    private int id;
     private String cpf;
     private String nome;
     private String sobrenome;
     private LocalDate dataCadastro;  
     private LocalDate dataNascimento;  
-    private UUID idContato;  
+    private int idContato;  
     private GeneroEnum genero;
     private StatusEnum status;
     private TipoEnum tipo;
 
     public UsuarioBean() {
+        this.id = AtomicIDGenerator.generateID();
+        this.idContato = AtomicIDGenerator.generateID();
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -69,11 +72,11 @@ public class UsuarioBean {
         this.dataNascimento = dataNascimento;
     }
 
-    public UUID getIdContato() {
+    public int getIdContato() {
         return idContato;
     }
 
-    public void setIdContato(UUID idContato) {
+    public void setIdContato(int idContato) {
         this.idContato = idContato;
     }
 

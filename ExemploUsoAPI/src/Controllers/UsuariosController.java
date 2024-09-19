@@ -18,14 +18,14 @@ import java.time.Month;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.UUID;
+//import java.util.UUID;
 
 public class UsuariosController {
 
     public void deleteUsuario(Connection con) throws SQLException {
         Scanner input = new Scanner(System.in);
         System.out.print("Digite o ID do usuário a ser excluído: ");
-        String id = input.nextLine();
+        int id = Integer.parseInt(input.nextLine());
         UsuarioModel.delete(id, con);
         System.out.println("Usuário excluído com sucesso.");
     }
@@ -58,13 +58,13 @@ public class UsuariosController {
         String tipo = input.nextLine();
         
         UsuarioBean usuario = new UsuarioBean();
-        usuario.setId(UUID.randomUUID());
+        usuario.setId(AtomicIDGenerator.generateID());
         usuario.setCpf(cpf);
         usuario.setNome(nome);
         usuario.setSobrenome(sobrenome);
         usuario.setDataCadastro(LocalDate.now());
         usuario.setDataNascimento(LocalDate.of(anoNascimento, Month.of(mesNascimento), diaNascimento));
-        usuario.setIdContato(UUID.fromString(idContato));
+        usuario.setIdContato(AtomicIDGenerator.generateID());
         usuario.setGenero(GeneroEnum.valueOf(genero));
         usuario.setStatus(StatusEnum.valueOf(status));
         usuario.setTipo(TipoEnum.valueOf(tipo));
@@ -76,7 +76,7 @@ public class UsuariosController {
     public void patchUsuario(Connection con) throws SQLException {
         Scanner input = new Scanner(System.in);
         System.out.print("Digite o ID do usuário a ser alterado: ");
-        String id = input.nextLine();
+        int id = Integer.parseInt(input.nextLine());
         int op = patchMenu();
         switch (op) {
             case 1:
@@ -109,12 +109,13 @@ public class UsuariosController {
                 String novaDataNascimento = input.nextLine();
                 UsuarioModel.patch("data_nascimento", novaDataNascimento, id, con);
                 break;
-            case 6:
-                getUsuario(con, id);
-                System.out.print("Novo ID Contato: ");
-                String novoIdContato = input.nextLine();
-                UsuarioModel.patch("id_contato", UUID.fromString(novoIdContato).toString(), id, con);
-                break;
+            //Nesse caso acredito que não deveria gerar um novo id
+            //case 6:
+              //getUsuario(con, id);
+              //System.out.print("Novo ID Contato: ");
+              //String novoIdContato = input.nextLine();
+              //UsuarioModel.patch("id_contato", UUID.fromString(novoIdContato).toString(), id, con);
+              //break;
             case 7:
                 getUsuario(con, id);
                 System.out.print("Novo Gênero (MASCULINO/FEMININO): ");
@@ -137,7 +138,7 @@ public class UsuariosController {
         System.out.println("Usuário alterado com sucesso!!");
     }
 
-    void getUsuario(Connection con, String id) throws SQLException {
+    void getUsuario(Connection con, int id) throws SQLException {
         UsuarioBean usuario = UsuarioModel.getById(con, id);
         if (usuario != null) {
             System.out.println(usuario);
@@ -162,7 +163,7 @@ public class UsuariosController {
         System.out.println("3 - Sobrenome");
         System.out.println("4 - Data de Cadastro");
         System.out.println("5 - Data de Nascimento");
-        System.out.println("6 - ID Contato");
+        //System.out.println("6 - ID Contato");
         System.out.println("7 - Gênero");
         System.out.println("8 - Status");
         System.out.println("9 - Tipo");

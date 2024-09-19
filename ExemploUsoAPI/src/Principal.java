@@ -24,13 +24,14 @@ public class Principal {
         int op = 0;
         System.out.println("Seja bem-vindo ao e-commerce Java Clothes.");
         System.out.println("Nós temos os seguintes produtos: ");
-        new ProdutosController().listarProdutos(con);
-        /*
+       // new ProdutosController().listarProdutos(con);
+      
         do{
             op = menu();
             try {
                 switch (op) {
-                    case 1: new ProdutosController().listarProdutos(con);
+                    case 1: new UsuariosController().createUsuario(con);//para teste de ID
+                    //case 1: new ProdutosController().listarProdutos(con);
                             break;
                 }
             }catch(SQLException ex) {
@@ -38,7 +39,7 @@ public class Principal {
                 System.out.println(ex.getMessage());
                 continue;
             }
-        } while(op>0 && op<8);  */
+        } while(op>0 && op<8);
         con.close();
     }    
     
